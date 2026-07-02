@@ -52,6 +52,8 @@ std::string appTypeToString(AppType type) {
         case AppType::DISCORD:    return "Discord";
         case AppType::GITHUB:     return "GitHub";
         case AppType::CLOUDFLARE: return "Cloudflare";
+        case AppType::LINKEDIN:   return "LinkedIn";   // <-- Add this!
+        case AppType::REDDIT:     return "Reddit"; 
         default:                  return "Unknown";
     }
 }
@@ -187,6 +189,17 @@ AppType sniToAppType(const std::string& sni) {
     if (lower_sni.find("cloudflare") != std::string::npos ||
         lower_sni.find("cf-") != std::string::npos) {
         return AppType::CLOUDFLARE;
+    }
+        // LinkedIn
+    if (lower_sni.find("linkedin") != std::string::npos ||
+        lower_sni.find("licdn") != std::string::npos) {
+        return AppType::LINKEDIN;
+    }
+    
+    // Reddit
+    if (lower_sni.find("reddit") != std::string::npos ||
+        lower_sni.find("redditmedia") != std::string::npos) {
+        return AppType::REDDIT;
     }
     
     // If SNI is present but not recognized, still mark as TLS/HTTPS
